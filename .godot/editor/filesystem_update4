@@ -1,2 +1,4 @@
-res://main.tscn
-res://cameraControl.gd
+res://Scenes/node_3d.tscn
+res://Scripts/fear.cs
+res://Scripts/player.cs
+res://Scripts/inventory.cs
