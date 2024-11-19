@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bn1vfmyok0bc6"]
+[gd_scene load_steps=13 format=3 uid="uid://bn1vfmyok0bc6"]
 
 [ext_resource type="Script" path="res://Scripts/player.cs" id="1_ng0af"]
 [ext_resource type="Script" path="res://Scripts/inventory.cs" id="2_wvbkp"]
+[ext_resource type="Script" path="res://Scripts/knife.cs" id="3_o54ts"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yqg77"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -19,6 +20,8 @@ glow_enabled = true
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hld2f"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3i5q7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5bigq"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_bkwrc"]
 
@@ -64,6 +67,15 @@ current = true
 
 [node name="Node3D" type="Node3D" parent="CharacterBody3D/Head/CamRot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, -0.9, -1.55702)
+
+[node name="knifeTest" type="Node3D" parent="CharacterBody3D/Head/CamRot/Camera3D"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1, 0)
+script = ExtResource("3_o54ts")
+
+[node name="Node3D" type="Node3D" parent="CharacterBody3D/Head/CamRot/Camera3D/knifeTest"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/Head/CamRot/Camera3D/knifeTest/Node3D"]
+mesh = SubResource("BoxMesh_5bigq")
 
 [node name="Inventory" type="Node3D" parent="CharacterBody3D"]
 visible = false
