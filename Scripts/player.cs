@@ -12,7 +12,6 @@ public partial class player : CharacterBody3D
 	private bool isInVR = false;
 	private Node3D testCamera;
 	private Camera3D securityCamera;
-	public CharacterBody3D playerCB3D;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -21,7 +20,6 @@ public partial class player : CharacterBody3D
 		camera = CamRot.GetNode<Camera3D>("Camera3D");
 		testCamera = GetNode<Node3D>("../testCamera");
 		securityCamera = GetNode<Camera3D>("../Camera3D");
-		// playerCB3D = this.
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
