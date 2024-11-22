@@ -24,6 +24,14 @@ public partial class knife : Node3D
 		
 	}
 
+	public float DotLookVector(float offenseDegree, float victimDegree)
+	{
+		Vector2 offenseVector = new Vector2(Mathf.Cos(offenseDegree),Mathf.Sin(offenseDegree));
+		Vector2 vicitmVector = new Vector2(Mathf.Cos(victimDegree),Mathf.Sin(victimDegree));
+		float resultant = offenseVector.Dot(vicitmVector); //mfw when i have to actually use trig for smth NOOOOO
+		return resultant;
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		var spaceState = GetWorld3D().DirectSpaceState;
@@ -35,9 +43,11 @@ public partial class knife : Node3D
 		var Intersections = spaceState.IntersectRay(query);
 		if(Intersections.Count > 0)
 		{
-			GD.Print(Intersections);
+			// GD.Print(Intersections);
 			var collider = (Node3D)Intersections["collider"];
-			GD.Print(collider.Transform.Basis);
+			GD.Print("YEONGSU KIM:" + collider.GlobalRotationDegrees.Y);
+			GD.Print("jonathan" + GlobalRotationDegrees.Y);
+			GD.Print(DotLookVector(GlobalRotation.Y,collider.GlobalRotation.Y)>0.2);
 		}
 	}
 
