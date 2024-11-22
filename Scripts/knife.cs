@@ -36,7 +36,8 @@ public partial class knife : Node3D
 		if(Intersections.Count > 0)
 		{
 			GD.Print(Intersections);
-			// GD.Print(player);
+			var collider = (Node3D)Intersections["collider"];
+			GD.Print(collider.Transform.Basis);
 		}
 	}
 

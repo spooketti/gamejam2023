@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bn1vfmyok0bc6"]
+[gd_scene load_steps=16 format=3 uid="uid://bn1vfmyok0bc6"]
 
 [ext_resource type="Script" path="res://Scripts/player.cs" id="1_ng0af"]
 [ext_resource type="Script" path="res://Scripts/inventory.cs" id="2_wvbkp"]
@@ -30,6 +30,12 @@ albedo_color = Color(0.600442, 0.979663, 0.795324, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_seyun"]
 albedo_color = Color(0.874239, 0.577349, 0.60875, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_c5sv4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m8h66"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sta4l"]
 
 [node name="World" type="Node3D"]
 
@@ -107,3 +113,13 @@ surface_material_override/0 = SubResource("StandardMaterial3D_seyun")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.24557, -2.88642)
 
 [node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.879, 0, 0)
+use_collision = true
+mesh = SubResource("CapsuleMesh_c5sv4")
+material = SubResource("StandardMaterial3D_m8h66")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CSGMesh3D"]
+transform = Transform3D(1.01545, 0, 0, 0, 0.107153, 0, 0, 0, 1.01545, 0, 0.620661, 0.375416)
+mesh = SubResource("CylinderMesh_sta4l")
