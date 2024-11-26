@@ -13,7 +13,7 @@ public partial class inventory : Node
 	public override void _Input(InputEvent @event)
 	{
 		Node clonedModel;
-		GD.Print(@event.AsText());
+		// GD.Print(@event.AsText());
 		
 		switch (@event.AsText())
 		{

@@ -34,7 +34,12 @@ public partial class knife : Node3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		var spaceState = GetWorld3D().DirectSpaceState;
+		
+	}
+
+    public override void _Input(InputEvent @event)
+    {
+        var spaceState = GetWorld3D().DirectSpaceState;
 		Vector2 mousePos = GetViewport().GetMousePosition();
 		Vector3 origin = camera.ProjectRayOrigin(mousePos);
 		Vector3 end = origin + camera.ProjectRayNormal(mousePos) * meleeRange;
@@ -45,14 +50,9 @@ public partial class knife : Node3D
 		{
 			// GD.Print(Intersections);
 			var collider = (Node3D)Intersections["collider"];
-			GD.Print("YEONGSU KIM:" + collider.GlobalRotationDegrees.Y);
-			GD.Print("jonathan" + GlobalRotationDegrees.Y);
+			// GD.Print("YEONGSU KIM:" + collider.GlobalRotationDegrees.Y);
+			// GD.Print("jonathan" + GlobalRotationDegrees.Y);
 			GD.Print(DotLookVector(GlobalRotation.Y,collider.GlobalRotation.Y)>0.2);
 		}
-	}
-
-    public override void _Input(InputEvent @event)
-    {
-        
     }
 }
