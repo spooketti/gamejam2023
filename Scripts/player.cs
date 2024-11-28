@@ -8,10 +8,15 @@ public partial class player : CharacterBody3D
 	private Camera3D camera;
 	private float acceleration = 0.5f;
 	private float gravity = 30f;
-	private float speed  = 5f;
+	private static float speed  = 5f;
+	private float backSpeed = speed/2;
 	private bool isInVR = false;
 	private Node3D testCamera;
 	private Camera3D securityCamera;
+
+	public float frequnecy = 0.01f;
+	public float amplitude = 0.15f;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -55,23 +60,33 @@ public partial class player : CharacterBody3D
 	private Vector3 velocity = Vector3.Zero;
     public override void _PhysicsProcess(double delta)
     {
-        Vector2 moveInput = Input.GetVector("left","right","forward","backward");
+        Vector2 moveInput = Input.GetVector("right","left","backward","forward");
 		Vector3 moveVector = (Transform.Basis * new Vector3(moveInput.X, 0, moveInput.Y)).Normalized();
+		// GD.Print(moveInput.Y);
 		if(moveVector != Vector3.Zero)
 		{
-			velocity.X  = -moveVector.X * speed;
-			float backSpeed = speed/2;
-			velocity.Z = -moveVector.Z * speed;
-			if(-moveVector.Z < 0)
+			velocity.X  = moveVector.X * speed;
+			velocity.Z = moveVector.Z * speed;
+			double tick = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+			float BobbleX = (float)Mathf.Cos(tick*frequnecy / 2)*amplitude;
+			float BobbleY = (float)Mathf.Abs(Math.Sin(tick*frequnecy))*amplitude;
+			Vector3 bobbleOffset = new Vector3(BobbleX,BobbleY,0);
+			if(moveInput.Y < 0)
 			{
-				velocity.Z = -moveVector.Z * backSpeed;
+				velocity.X = moveVector.X * speed * 0.5f;
+				velocity.Z = moveVector.Z * speed * 0.5f;
+				bobbleOffset.X /= 2;
+				bobbleOffset.Y /= 2;
+
+				// GD.Print(velocity.Z);
 			}
-			// camera.TranslateObjectLocal(new Vector3(0.05f,0,0));
+			camera.Position = camera.Position.Lerp(bobbleOffset,0.75f);
 		}
 		else
 		{
 			velocity.X = Mathf.MoveToward(velocity.X,0,acceleration);
 			velocity.Z = Mathf.MoveToward(velocity.Z,0,acceleration);
+			camera.Position = camera.Position.Lerp(new Vector3(0,0,0),0.025f);
 		}
 		if(!IsOnFloor())
 		{
