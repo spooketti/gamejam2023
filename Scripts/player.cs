@@ -16,8 +16,8 @@ public partial class player : CharacterBody3D
 
 	public float frequnecy = 0.01f;
 	public float amplitude = 0.15f;
-	private double swayTurn = 0;
-	private Vector2 mouseDelta = new Vector2(0,0);
+	private float swayTurn = 0;
+	private float mouseDelta = 0;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -33,19 +33,16 @@ public partial class player : CharacterBody3D
 	public override void _Process(double delta)
 	{
 		cameraSway(delta);
-		mouseDelta = Vector2.Zero;
+		mouseDelta = 0;
 	}
 
 	public override void _Input(InputEvent @event)
 	{
 		if(@event is InputEventMouseMotion eventMouseMotion)
 		{
-			mouseDelta = eventMouseMotion.Relative;
+			mouseDelta = eventMouseMotion.Relative.X;
 			RotateY(-eventMouseMotion.Relative.X * (float)(Math.PI / 180));
 			camera.RotateX(-eventMouseMotion.Relative.Y * (float)(Math.PI / 180));
-			Vector3 camRot = camera.Rotation;
-			camRot.X = Mathf.Clamp(camRot.X, Mathf.DegToRad(-80), Mathf.DegToRad(80));
-			camera.Rotation = camRot;
 		}	
 		if(@event.IsActionPressed("ToggleHeadset"))
 		{
@@ -70,8 +67,11 @@ public partial class player : CharacterBody3D
 	
 	private void cameraSway(double dt)
 	{
-		swayTurn = swayLerp(swayTurn,Math.Clamp(mouseDelta.X,-7.5,7.5),7*dt);
-		camera.RotationDegrees = new Vector3(camera.RotationDegrees.X,camera.RotationDegrees.Y, (float)swayTurn);
+		swayTurn = swayLerp(swayTurn,Math.Clamp(mouseDelta,-7.5,7.5),7*dt);
+		Vector3 camRot = camera.Rotation;
+		camRot.X = Mathf.Clamp(camRot.X, Mathf.DegToRad(-80f), Mathf.DegToRad(80f));
+		camRot.Z = Mathf.DegToRad(swayTurn);
+		camera.Rotation = camRot;
 	}
 
 	private Vector3 velocity = Vector3.Zero;
