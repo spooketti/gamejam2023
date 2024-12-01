@@ -13,12 +13,10 @@ public partial class inventory : Node
 	public override void _Input(InputEvent @event)
 	{
 		Node clonedModel;
-		// GD.Print(@event.AsText());
 		
 		switch (@event.AsText())
 		{
 			case "1":
-				GD.Print("i dont wanna fall in love alone");
 				clonedModel = GetChild(0).Duplicate();
 				// viewModelNode.RemoveChild(viewModelNode.GetChild(0));
 				viewModelNode.AddChild(clonedModel);

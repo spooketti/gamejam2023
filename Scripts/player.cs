@@ -16,6 +16,8 @@ public partial class player : CharacterBody3D
 
 	public float frequnecy = 0.01f;
 	public float amplitude = 0.15f;
+	private double swayTurn = 0;
+	private Vector2 mouseDelta = new Vector2(0,0);
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -30,12 +32,15 @@ public partial class player : CharacterBody3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		cameraSway(delta);
+		mouseDelta = Vector2.Zero;
 	}
 
 	public override void _Input(InputEvent @event)
 	{
 		if(@event is InputEventMouseMotion eventMouseMotion)
 		{
+			mouseDelta = eventMouseMotion.Relative;
 			RotateY(-eventMouseMotion.Relative.X * (float)(Math.PI / 180));
 			camera.RotateX(-eventMouseMotion.Relative.Y * (float)(Math.PI / 180));
 			Vector3 camRot = camera.Rotation;
@@ -57,12 +62,23 @@ public partial class player : CharacterBody3D
 		}
 	}
 
+
+	private float swayLerp(double a, double b, double t)
+	{
+		return (float)(a + (b-a) * t);
+	}
+	
+	private void cameraSway(double dt)
+	{
+		swayTurn = swayLerp(swayTurn,Math.Clamp(mouseDelta.X,-7.5,7.5),7*dt);
+		camera.RotationDegrees = new Vector3(camera.RotationDegrees.X,camera.RotationDegrees.Y, (float)swayTurn);
+	}
+
 	private Vector3 velocity = Vector3.Zero;
     public override void _PhysicsProcess(double delta)
     {
         Vector2 moveInput = Input.GetVector("right","left","backward","forward");
 		Vector3 moveVector = (Transform.Basis * new Vector3(moveInput.X, 0, moveInput.Y)).Normalized();
-		// GD.Print(moveInput.Y);
 		if(moveVector != Vector3.Zero)
 		{
 			velocity.X  = moveVector.X * speed;
@@ -77,8 +93,6 @@ public partial class player : CharacterBody3D
 				velocity.Z = moveVector.Z * speed * 0.5f;
 				bobbleOffset.X /= 2;
 				bobbleOffset.Y /= 2;
-
-				// GD.Print(velocity.Z);
 			}
 			camera.Position = camera.Position.Lerp(bobbleOffset,0.75f);
 		}

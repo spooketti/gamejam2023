@@ -48,6 +48,7 @@ shadow_enabled = true
 environment = SubResource("Environment_5svwo")
 
 [node name="Node3D" type="Node3D" parent="."]
+visible = false
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.9794, 0)
@@ -137,3 +138,11 @@ material = SubResource("StandardMaterial3D_m8h66")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CSGMesh3D"]
 transform = Transform3D(1.01545, 0, 0, 0, 0.107153, 0, 0, 0, 1.01545, 0, 0.620661, 0.375416)
 mesh = SubResource("CylinderMesh_sta4l")
+
+[node name="Node3D2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1, 15)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.9794, 0)
+use_collision = true
+size = Vector3(30, 0.2, 30)
