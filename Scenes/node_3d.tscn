@@ -1,9 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://bn1vfmyok0bc6"]
+[gd_scene load_steps=20 format=3 uid="uid://bn1vfmyok0bc6"]
 
 [ext_resource type="Script" path="res://Scripts/player.cs" id="1_ng0af"]
 [ext_resource type="Script" path="res://Scripts/inventory.cs" id="2_wvbkp"]
 [ext_resource type="Script" path="res://Scripts/knife.cs" id="3_o54ts"]
 [ext_resource type="Texture2D" uid="uid://nlr1fxyixldo" path="res://Assets/Image/crosshair.png" id="3_yqafu"]
+[ext_resource type="PackedScene" uid="uid://cmo5l501io3cy" path="res://Assets/Rooms/4_way.tscn" id="5_3lhln"]
+[ext_resource type="Script" path="res://Scripts/DungeonGenerator.cs" id="6_sb4dl"]
+[ext_resource type="PackedScene" uid="uid://bop6n012a1a6q" path="res://Assets/Rooms/spawn.tscn" id="7_04aao"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yqg77"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -48,12 +51,11 @@ shadow_enabled = true
 environment = SubResource("Environment_5svwo")
 
 [node name="Node3D" type="Node3D" parent="."]
-visible = false
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.9794, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, -1.979, 15)
 use_collision = true
-size = Vector3(32.86, 0.2, 26.675)
+size = Vector3(30, 0.2, 30)
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.81419, 4)
@@ -140,10 +142,12 @@ material = SubResource("StandardMaterial3D_m8h66")
 transform = Transform3D(1.01545, 0, 0, 0, 0.107153, 0, 0, 0, 1.01545, 0, 0.620661, 0.375416)
 mesh = SubResource("CylinderMesh_sta4l")
 
-[node name="Node3D2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1, 15)
+[node name="4way" parent="." instance=ExtResource("5_3lhln")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, -0.979, 15)
+visible = false
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Node3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.9794, 0)
-use_collision = true
-size = Vector3(30, 0.2, 30)
+[node name="Dungeon" type="Node3D" parent="."]
+script = ExtResource("6_sb4dl")
+
+[node name="CSGBox3D" parent="." instance=ExtResource("7_04aao")]
+visible = false

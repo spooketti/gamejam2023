@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmo5l501io3cy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_56kw4"]
+
+[node name="4way" type="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, -0.9794, 15)
+use_collision = true
+size = Vector3(30, 0.2, 30)
+
+[node name="door" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1, 0)
+mesh = SubResource("BoxMesh_56kw4")
+
+[node name="door2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -15)
+mesh = SubResource("BoxMesh_56kw4")
+skeleton = NodePath("../..")
+
+[node name="door3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 0)
+mesh = SubResource("BoxMesh_56kw4")
+
+[node name="door4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 15)
+mesh = SubResource("BoxMesh_56kw4")
