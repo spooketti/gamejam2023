@@ -40,10 +40,25 @@ public partial class DungeonGenerator : Node
 
 	}
 
+	private void spawnMathTile(int x, int z)
+	{
+		if(x < 0 || x > dungeonWidth || z < 0 || z>dungeonHeight)
+		{
+			return;
+		}
+		if(dungeon[z,x] != 0)
+		{
+			return;
+		}
+		dungeon[z,x]=2;
+		spawnTileLiteral((x*tileX)+(tileX/2), (z*tileZ)+(tileZ/2),0,fourWay);
+		return;
+
+	}
 	private void spawnStartRoom()
 	{
-		startX = random.Next(dungeonWidth);
-		startZ = random.Next(dungeonHeight);
+		startX = 0;//random.Next(dungeonWidth);
+		startZ = 0;//random.Next(dungeonHeight);
 		int randomRotation = random.Next(4)*90;
 		int oldX = startX;
 		int oldZ = startZ;
@@ -72,6 +87,8 @@ public partial class DungeonGenerator : Node
 			spawnStartRoom();
 			return;
 		}
+
+		spawnMathTile(startX,startZ);
 
 		startX = oldX;
 		startZ = oldZ;
