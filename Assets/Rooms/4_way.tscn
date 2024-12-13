@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmo5l501io3cy"]
+[gd_scene load_steps=6 format=3 uid="uid://cmo5l501io3cy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ggl3g"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_b3qt0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wopob"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g44su"]
+albedo_color = Color(1, 0.215686, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_56kw4"]
+material = SubResource("StandardMaterial3D_g44su")
 
 [node name="4way" type="CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, -0.9794, 15)
@@ -9,16 +19,16 @@ size = Vector3(30, 0.2, 30)
 
 [node name="door" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1, 0)
-mesh = SubResource("BoxMesh_56kw4")
+mesh = SubResource("BoxMesh_ggl3g")
 
 [node name="door2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -15)
-mesh = SubResource("BoxMesh_56kw4")
+mesh = SubResource("BoxMesh_b3qt0")
 skeleton = NodePath("../..")
 
 [node name="door3" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 1, 0)
-mesh = SubResource("BoxMesh_56kw4")
+mesh = SubResource("BoxMesh_wopob")
 
 [node name="door4" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 15)

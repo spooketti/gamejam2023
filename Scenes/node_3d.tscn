@@ -76,7 +76,6 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Head/CamRot"]
 rotation_order = 0
 cull_mask = 1048573
-current = true
 
 [node name="Node3D" type="Node3D" parent="CharacterBody3D/Head/CamRot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, -0.9, -1.55702)
@@ -131,6 +130,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_seyun")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.24557, -2.88642)
 
 [node name="Camera3D" type="Camera3D" parent="."]
+current = true
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.879, 0, 0)
@@ -151,3 +151,8 @@ script = ExtResource("6_sb4dl")
 
 [node name="CSGBox3D" parent="." instance=ExtResource("7_04aao")]
 visible = false
+
+[node name="topview" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 75, 100, 75)
+current = true
+fov = 90.0
